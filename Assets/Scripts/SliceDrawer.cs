@@ -118,14 +118,20 @@ public class SliceDrawer : MonoBehaviour {
         }
 
         configData.linesPositons = test.ToArray();
+
+        WriteCalib wc = new WriteCalib();
+        wc.Save(test.ToArray());
     }
 
     private void GetCalibData()
     {
         Debug.Log("GetData");
+
+        WriteCalib wc = new WriteCalib();
+        string[] tt = wc.LoadData();
+        configData.linesPositons = tt;
         Vector3[,] mytest = new Vector3[configData.linesPositons.Length, 2];
-        
-        for(int i = 0; i < configData.linesPositons.Length; i++)
+        for (int i = 0; i < configData.linesPositons.Length; i++)
         {
             Vector3[] tempArray = ParseLine(configData.linesPositons[i]);
             mytest[i, 0] = tempArray[0];
